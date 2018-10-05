@@ -1,0 +1,56 @@
+<div class="col-12 ">
+  <div class="card w3-animate-right">
+    <div class="card-header bg-green">
+      <h3 class="card-title text-white">
+        <i class="fa fa-user"></i> ข้อมูลผู้ใช้งาน</h3>
+
+
+
+      <div class="col-lg-3 ml-auto">
+        <form class="input-icon my-3 my-lg-0">
+          <input type="search" class="form-control header-search" placeholder="กรองข้อมูลผู้ใช้งาน" tabindex="1" [(ngModel)]="term"
+            name="term">
+          <div class="input-icon-addon">
+            <i class="fe fe-search"></i>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table card-table table-vcenter text-nowrap" id="no-more-tables">
+        <thead>
+          <tr>
+            <th class="w-1">บัญชีผู้ใข้</th>
+            <th>ชื่อแผนก</th>
+            <th>สถานะ</th>
+            <th *ngIf="this.service.gc !=''">แก้ไข</th>
+            <th *ngIf="this.service.ary[0].user_level > 1">ลบ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of user | filter: this.term ">
+            <td data-title="บัญชีผู้ใข้">
+              {{x.user_name}}</td>
+            <td data-title="ชื่อแผนก">
+              {{x.name}}
+            </td>
+            <td data-title="สถานะ">
+              <span class="avatar" *ngIf="x.user_level == 'ผู้ควบคุมยานพาหนะ'" style="background-image: url(assets/images/icon/pesonal.png)"></span>
+              <span class="avatar" *ngIf="x.user_level == 'ผู้ดูแลระบบ'" style="background-image: url(assets/images/icon/admin.png)"></span>
+              {{x.user_level}}</td>
+            <td *ngIf="this.service.gc !=''">
+              <a class="icon" routerLink="/edituser/{{x.user_name}}">
+                <i class="fe fe-edit"></i>
+              </a>
+            </td>
+            <td *ngIf="this.service.ary[0].user_level > 1">
+              <a class="icon" (click)="cancel(x.user_level)">
+                <i class="fe fe-trash-2 "></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

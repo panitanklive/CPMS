@@ -1,0 +1,212 @@
+<div class="row w3-animate-right">
+  <div class="card col-lg-3">
+    <div class="card-header">
+      <h3 class="card-title">
+        <i class="fa fa-dashboard"></i> ข้อมูลไมล์รถ</h3>
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label class="form-label">ไมล์เริ่มต้น
+                <span class="form-required">*</span>
+              </label>
+              <div class="input-group">
+                <span class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-play"></i>
+                  </span>
+                </span>
+                <input class="form-control" placeholder="กรอกไมล์เริ่มต้น 6 หลัก" name="trip_mile" [(ngModel)]="this.trip_mile[0].call" maxlength="6"
+                  OnKeyPress="return chkNumber2(this)" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">ไมล์สิ้นสุด
+                <span class="form-required">*</span>
+              </label>
+              <div class="input-group">
+                <span class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-pause"></i>
+                  </span>
+                </span>
+                <input class="form-control" placeholder="กรอกไมล์สิ้นสุด 6 หลัก" name="trip_mile_end" [(ngModel)]="trip_mile_end" maxlength="6"
+                  OnKeyPress="return chkNumber2(this)" />
+              </div>
+            </div>
+
+          
+
+            <div class="form-group">
+              <label class="form-label">ทะเบียนรถ
+                <span class="form-required"></span>
+              </label>
+              <div class="input-group">
+                
+                <input class="form-control" placeholder="" name="carpool_id" [(ngModel)]="carpool_id" maxlength=""
+                  readonly />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">ยี่ห้อรถยนต์
+                <span class="form-required"></span>
+              </label>
+              <div class="input-group">
+                
+                <input class="form-control" placeholder="" name="carpool_brand" [(ngModel)]="this.trip_mile[0].carpool_brand" maxlength=""
+                  readonly />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">ประเภทรถยนต์
+                <span class="form-required"></span>
+              </label>
+              <div class="input-group">
+                
+                <input class="form-control" placeholder="" name="carpool_type" [(ngModel)]="this.trip_mile[0].carpool_type" maxlength=""
+                  readonly />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">สถานที่ที่จอดรถ
+                <span class="form-required">*</span>
+              </label>
+              <ng-select [items]="park" bindLabel="carpool_park" bindValue="carpool_park" [(ngModel)]="carpool_park" name="carpool_park"
+                placeholder="กรอกสถานที่จอดรถ">
+              </ng-select>
+            </div>
+
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card  col-lg-9">
+    <div class="card-header">
+      <h3 class="card-title">
+        <i class="fa fa-flask"></i> ข้อมูลการเติมน้ำมัน</h3>
+    </div>
+    <div class="card-body">
+      <div class="row" >
+        <div class="form-group col-sm-4 col-md-3">
+          <label class="form-label">
+            เลขไมล์ที่เติม
+            <span class="form-required"></span>
+          </label>
+          <input type="text" class="form-control" [(ngModel)]="oil_mile" name="oil_mile" maxlength="6" placeholder="กรอกเลขไมล์ 6 หลัก"
+            OnKeyPress="return chkNumber2(this)">
+        </div>
+        <div class="form-group col-sm-4 col-md-2">
+          <label class="form-label">
+            ราคาต่อลิตร
+            <span class="form-required"></span>
+          </label>
+          <input type="text" class="form-control" [(ngModel)]="oil_price" name="oil_price" maxlength="5" placeholder="00.00" (keyup)="cal()"
+            OnKeyPress="return chkNumber1(this)">
+        </div>
+        <div class="form-group col-sm-4 col-md-2">
+          <label class="form-label">
+            จำนวนลิตร
+            <span class="form-required"></span>
+          </label>
+          <input type="text" class="form-control" [(ngModel)]="oil_liter" name="oil_liter" maxlength="5" placeholder="00.00" (keyup)="cal()"
+            OnKeyPress="return chkNumber1(this)">
+        </div>
+        <div class="form-group col-sm-4 col-md-2">
+          <label class="form-label">
+            รวมเป็นเงิน
+            <span class="form-required"></span>
+          </label>
+          <input type="text" class="form-control" [(ngModel)]="oil_net" name="oil_net" maxlength="5" readonly>
+        </div>
+
+        <div class="form-group col-sm-4 col-md-2">
+          <label class="form-label ">
+            <span class="form-required text-white">.</span>
+          </label>
+          <button type="submit" class="btn btn-success btn" (click)="add()">เพิ่มการเติมน้ำมัน</button>
+        </div>
+
+
+
+      </div>
+
+      <div class="table-responsive" >
+        <table class="table mb-0">
+          <thead>
+            <tr>
+              <th class="pl-0">ลำดับ</th>
+              <th>เลขไมล์ที่เติม</th>
+              <th>ราคาต่อลิตร</th>
+              <th>จำนวนลิตร</th>
+              <th>รวมเป็นเงิน</th>
+              <th>ลบ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of oil; let i = index">
+              <td class="pl-0">
+                {{i+1}}.
+              </td>
+              <td>
+                {{p.oil_mile}}
+              </td>
+              <td>
+                {{p.oil_price}} บาท.
+              </td>
+              <td>
+                {{p.oil_liter}} ลิตร.
+              </td>
+              <td>
+                {{p.oil_net}} บาท.
+              </td>
+              <td>
+                <a class="icon">
+                  <i class="fe fe-trash-2" (click)="del(i)"></i>
+                </a>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      
+
+
+
+    </div>
+
+    <div class="card-header">
+      <h3 class="card-title">
+        <i class="fe fe-flag"></i> เลือกแผนที่ ที่จอดรถยนต์</h3>
+    </div>
+
+    <img src="assets/images/map.jpg" usemap="#image-map" width="824px">
+
+    <map name="image-map">
+
+      <area alt="อาคาร 1" title="อาคาร 1" coords="321,241,473,239,475,285,321,287" shape="ploy" (click)="show(this.park[0].carpool_park)">
+      <area alt="อาคาร 2" title="อาคาร 2" coords="361,186,296,195,294,233,365,227" shape="poly" (click)="show(this.park[1].carpool_park)">
+      <area alt="อาคาร 3" title="อาคาร 3" coords="57,174,287,178,260,237,52,247,53,210" shape="poly" (click)="show(this.park[2].carpool_park)">
+      <area alt="อาคาร 5" title="อาคาร 5" coords="341,40,369,51,335,106,304,95" shape="poly" name="อาคาร 5" (click)="show(this.park[3].carpool_park)">
+      <area alt="อาคาร 6" title="อาคาร 6" coords="297,122,347,141,332,174,277,157" shape="poly" (click)="show(this.park[4].carpool_park)">
+      <area alt="ลานกว้าง" title="ลานกว้าง" coords="518,99,558,112,514,186,481,162" shape="poly" (click)="show(this.park[5].carpool_park)">
+      <area alt="ลานอเนกประสงค์" title="ลานอเนกประสงค์" coords="469,158,413,141,419,215,472,213" shape="poly" (click)="show(this.park[6].carpool_park)">
+      <area alt="โรงงานอาหาร" title="โรงงานอาหาร" coords="347,111,460,142,493,88,378,57" shape="poly" (click)="show(this.park[7].carpool_park)">
+      <area alt="สถานีไฟฟ้า" title="สถานีไฟฟ้า" coords="126,252,236,254,235,286,127,289" shape="poly" (click)="show(this.park[8].carpool_park)">
+    </map>
+    <div class="card-footer text-right">
+
+      <button type="submit" class="btn btn-primary" (click)="get()">รับกุญแจรถ</button>
+    </div>
+  </div>
+  </div>
+

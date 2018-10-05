@@ -1,0 +1,49 @@
+<div class="col-lg w3-animate-right">
+  <form class="card">
+    <div class="card-body">
+      <h3 class="card-title">
+        <i class="fe fe-edit"></i> แก้ไขข้อมูลใช้งาน</h3>
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group">
+            <label class="form-label">บัญชีผู้ใช้งาน
+              <span class="form-required">*</span>
+            </label>
+            <input type="text" class="form-control" placeholder="กรอกเลขทะเบียนรถ" [(ngModel)]="user_name" name="user_name" disabled>
+          </div>
+        </div>
+    
+
+        <div class="col-sm-6 col-md-3">
+            <label class="form-label">รหัสผ่าน
+              <span class="form-required">*</span>
+            </label>
+            <div class="input-group">
+              <span class="input-group-prepend">
+                <span class="input-group-text" (click)="eye(this.user[0].password)">
+                  <i class="fa fa-eye"></i>
+                </span>
+              </span>
+              <input type="password" class="form-control" placeholder="กรอกรหัสผ่าน" [(ngModel)]="this.user[0].password" name="password">
+            </div>
+          </div>
+
+
+        <div class="col-sm-6 col-md-4">
+          <div class="form-group">
+            <label class="form-label">สถานะ
+              <span class="form-required">*</span>
+            </label>
+            <input type="text" class="form-control"  [(ngModel)]="this.user[0].user_level" name="user_level" readonly>
+          </div>
+        </div>
+ 
+
+      </div>
+    </div>
+    <div class="card-footer text-right">
+      <button type="submit" class="btn btn-primary" (click)="edit()">แก้ไขข้อมูลผู้ใข้งาน</button>
+    </div>
+  </form>
+
+</div>

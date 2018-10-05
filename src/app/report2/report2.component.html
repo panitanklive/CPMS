@@ -1,0 +1,80 @@
+<div class="row w3-animate-right">
+
+  <div class="col-md-6 ">
+    <div class="card">
+      <div class="card-status bg-green"></div>
+      <div class="card-header">
+        <h3 class="card-title">
+          <i class="fe fe-file-text"></i> รายงานการใช้เชื้อเพลิง</h3>
+        <div class="card-options">
+          <a href="#" class="card-options-collapse" data-toggle="card-collapse">
+            <i class="fe fe-chevron-up"></i>
+          </a>
+          <a href="#" class="card-options-remove" data-toggle="card-remove">
+            <i class="fe fe-x"></i>
+          </a>
+        </div>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="row">
+
+            <div class="form-group col-md-12">
+              <label class="form-label">ทะเบียนรถ
+                <span class="form-required"></span>
+              </label>
+
+              <ng-select [items]="peet" bindLabel="carpool_id" bindValue="carpool_id" [(ngModel)]="_carpool_id" name="_carpool_id" placeholder="กรอกทะเบียนรถ">
+              </ng-select>
+
+            </div>
+
+            <div class="form-group col-md-6">
+              <label class="form-label">วันที่เริ่มเดินทาง
+                <span class="form-required">*</span>
+              </label>
+              <div class="input-group">
+                <span class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                </span>
+                <input class="form-control" type="date" name="trip_start" [(ngModel)]="trip_start" />
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label class="form-label">ถึงวันที่
+                <span class="form-required">*</span>
+              </label>
+              <div class="input-group">
+                <span class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                </span>
+                <input class="form-control" type="date" name="trip_end" [(ngModel)]="trip_end" />
+              </div>
+            </div>
+
+       
+          </div>
+          <div class=" text-right">
+            <button type="submit" class="btn btn-primary"  *ngIf="trip_start !=''  &&  trip_end !='' ">
+              <a href="{{urlbase}}TCPDF-master\examples\report2.php?trip_start={{trip_start}}&&trip_end={{trip_end}}&&carpool_id={{_carpool_id}}"
+                target="_blank" class="text-white">ออกรายงาน</a>
+            </button>
+            <button type="submit" class="btn btn-primary" *ngIf="trip_start == '' || trip_end =='' " (click)="alert()"> 
+              ออกรายงาน
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>

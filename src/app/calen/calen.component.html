@@ -1,0 +1,64 @@
+<div class="row w3-animate-right">
+    <div class="card col-lg-8">
+        <div class="card-header bg-green">
+            <h3 class="card-title text-white">
+                <i class="fa fa-calendar"></i> ปฏิทินการจองรถ</h3>
+        </div>
+        <div class="card-body">
+            <div *ngIf="calendarOptions">
+                <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)"
+                    (eventResize)="updateEvent($event.detail)" (clickButton)="clickButton($event.detail)"></ng-fullcalendar>
+            </div>
+        </div>
+    </div>
+    <div class="card col-lg-4">
+        <div class="card-header bg-green">
+            <h3 class="card-title text-white">
+                <i class="fa fa-automobile"></i> ข้อมูลรถ</h3>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="form-label">ทะเบียนรถ</label>
+                            <input class="form-control" value="{{this.round[0].carpool_id}}" readonly="readonly">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">ยี่ห้อ</label>
+                            <input class="form-control" value="{{this.round[0].carpool_brand}}" readonly="readonly">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">รุ่น</label>
+                            <input class="form-control" value="{{this.round[0].carpool_model}}" readonly="readonly">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">จำนวนที่นั่งสูงสุด</label>
+                            <input class="form-control" value="{{this.round[0].carpool_sit2}}" readonly="readonly">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">ประเภทรถ</label>
+                            <input class="form-control" value="{{this.round[0].carpool_type}}" readonly="readonly">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">สถานะรถ </label>
+
+                            <div *ngIf="this.round[0].carpool_go =='จอด'">
+                                <span class="status-icon bg-success"></span> {{this.round[0].carpool_go}} </div>
+                            <div *ngIf="this.round[0].carpool_go =='เดินทาง'">
+                                <span class="status-icon bg-dark"></span> {{this.round[0].carpool_go}} </div>
+                                <div *ngIf="this.round[0].carpool_go =='ซ่อมบำรุง'">
+                                    <span class="status-icon bg-danger"></span> {{this.round[0].carpool_go}} </div>
+                                
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-right" *ngIf="this.service.gc !='' ">
+            <a routerLink="/addtrip/{{carpool_id}}" *ngIf ="this.round[0].carpool_go != 'ซ่อมบำรุง'">
+                <button type="submit" class="btn btn-success" (click)="add()">จองรถ</button>
+            </a>
+        </div>
+    </div>
+</div>

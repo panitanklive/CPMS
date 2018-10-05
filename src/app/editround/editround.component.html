@@ -1,0 +1,162 @@
+<div class="row w3-animate-right">
+    <div class="card col-lg-3">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fe fe-search"></i> ค้นหาพนักงาน</h3>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="row">
+  
+            <div class="col">
+              <div class="form-group">
+                <label class="form-label">บัญชีผู้ใช้</label>
+                <div class="input-group">
+                  <span class="input-group-prepend" id="basic-addon1">
+                    <span class="input-group-text">
+                      <i class="fa fa-neuter"></i>
+                    </span>
+                  </span>
+               <input type="text" class="form-control" placeholder="กรอกรหัสพนักงาน" [(ngModel)]="term" name="term" (keyup)="search()" > 
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+  
+          <div *ngIf="this.employee[0].employee_detail != 'ไม่พบพนักงาน' && this.employee[0].employee_detail !=''">
+            <div *ngIf="this.service.gc !='' ">
+              <a class="nav-link pr-0 leading-none" data-toggle="dropdown">
+                <span class="avatar" style="background-image: url(assets/images/icon/user.png)"></span>
+                <span class="ml-2 d-none d-lg-block">
+                  <span class="text-default">{{employee[0].employee_detail}}</span>
+                             <small class="text-muted d-block mt-1">{{employee[0].employee_dep}}</small>
+                </span>
+              </a>
+            </div>
+            <div class="form-footer">
+              <button class="btn btn-primary btn-block" (click)="add(employee[0].employee_detail,employee[0].employee_dep,employee[0].employee_id)">เพิ่ม</button>
+            </div>
+          </div>
+          <div *ngIf="this.employee[0].employee_detail =='ไม่พบพนักงาน' && this.employee[0].employee_detail !=''">
+            <a class="nav-link pr-0 leading-none" data-toggle="dropdown">
+              <span class="avatar" style="background-image: url(https://freeiconshop.com/wp-content/uploads/edd/document-error-flat.png)"></span>
+              <span class="ml-2 d-none d-lg-block">
+                <span class="text-default">ไม่พบพนักงาน</span>
+                 <small class="text-muted d-block mt-1">กรุณากรอกรหัสพนักงานใหม่</small>
+              </span>
+            </a>
+          </div>
+  
+            <hr>
+            <div class="form-group">
+                <label class="form-label">รถยนต์ที่พร้อมใช้งาน
+                  <span class="form-required">*</span>
+                </label>
+                <ng-select [items]="car_if" bindLabel="carpool_id" bindValue="carpool_id" [(ngModel)]="this.round[0].carpool_id" name="carpool_id"
+                  placeholder="กรอกสถานที่จอดรถ">
+                </ng-select>
+                <div class="card-footer "></div>
+                <a routerLink="/calendar/{{this.round[0].carpool_id}}">
+                <button type="submit" class="btn btn-secondary  pull-right" >ดูรอบรถ</button>
+                </a>
+              </div>
+              
+  
+        </form>
+        
+      </div>
+     
+    </div>
+  
+    <div class="card  col-lg-9">
+        <div class="card-header">
+          <h3 class="card-title">
+              <i class="fe fe-edit"></i> แก้ไขข้อมูลการเดินทาง</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="form-group col-sm-4 col-md-3">
+              <label class="form-label">
+                วันที่เดินทาง
+                <span class="form-required">*</span>
+              </label>
+              <input type="date" class="form-control" [(ngModel)]="this.round[0].trip_start" name="trip_start">
+            </div>
+            <div class="form-group col-sm-4 col-md-2">
+              <label class="form-label">
+                เวลาเดินทาง
+                <span class="form-required">*</span>
+              </label>
+              <input type="time" class="form-control" [(ngModel)]="this.round[0].trip_time" name="trip_time">
+            </div>
+            <div class="form-group col-sm-4 col-md-3">
+              <label class="form-label">
+                วันที่กลับ
+                <span class="form-required">*</span>
+              </label>
+              <input type="date" class="form-control" [(ngModel)]="this.round[0].trip_end" name="trip_end">
+            </div>
+            <div class="form-group col-sm-4 col-md-4">
+              <label class="form-label">
+                สถานที่
+                <span class="form-required">*</span>
+              </label>
+
+              <ng-select [items]="trsg"
+              bindLabel="trsg_name"
+              bindValue="trsg_id"
+              placeholder="กรอกชื่อสถานที่"
+              [(ngModel)]="this.round[0].trsg_id" name="trsg_id">
+             </ng-select>
+            </div>
+          </div>
+          <div class="form-label">ข้อมูลผู้ร่วมเดินทาง</div>
+          <div class="table-responsive">
+            <table class="table mb-0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th class="pl-0">ชื่อ-สกุล</th>
+                  <th>เบอร์ติดต่อ</th>
+                  <th>เบอร์โต๊ะ</th>
+                  <th>สถานะ</th>
+                  <th>ลบ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let p of passenger; let i = index">
+                  <td>{{i+1}}.</td>
+                  <td class="pl-0">
+                    
+                      <i class="fa fa-info-circle text-primary" (click)="group_dep(this.passenger[i].employee_dep)"></i>
+                    {{p.employee_detail}}
+                  </td>
+                  <td>
+                      <input type="text" class="form-control" [(ngModel)]="this.passenger[i].passenger_tel" name="passenger_tel" maxlength="10" OnKeyPress="return chkNumber2(this)">
+                  </td>
+                  <td>
+                      <input type="text" class="form-control" [(ngModel)]="this.passenger[i].passenger_tel_table" name="passenger_tel_table" maxlength="5" OnKeyPress="return chkNumber2(this)">
+                  </td>
+                  <td class="pr-0">
+                    <button class="btn btn-green btn-sm" (click)="ch(p.passenger_status,i)" *ngIf="p.passenger_status == 'จอง'">{{p.passenger_status}}</button>
+                    <button class="btn btn-gray btn-sm" (click)="ch(p.passenger_status,i)" *ngIf="p.passenger_status == 'โดยสาร'">{{p.passenger_status}}</button>
+                  </td>
+                  <td>
+                      <a class="icon">
+                          <i class="fe fe-trash-2" (click)="del(i)"></i>
+                        </a>
+                  </td>
+                </tr>
+    
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer text-right">
+            <button type="submit" class="btn btn-primary" (click)="edit_trip()">แก้ไขข้อมูล</button>
+          </div>
+      </div>
+  
+  
+  
+  </div>

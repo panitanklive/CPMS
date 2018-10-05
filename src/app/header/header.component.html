@@ -1,0 +1,160 @@
+<div class="header py-4 ">
+  <div class="container">
+    <div class="d-flex">
+      <a class="header-brand" routerLink="">
+        <img src="assets/demo/brand/logo_cpms.png" class="header-brand-img w3-animate-top" alt="tabler logo">
+      </a>
+      <div class="d-flex order-lg-2 ml-auto">
+        <div class="dropdown d-none d-md-flex" *ngIf="this.service.gc != ''">
+          <a class="nav-link icon" data-toggle="dropdown">
+            <i class="fa fa-clock-o w3-animate-zoom text-yellow"></i>
+            <span class="nav-unread w3-animate-zoom" *ngIf="this.service.gc != '' && this.cargo_today[0].carpool_id != 0"></span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" *ngIf="this.service.gc != '' && this.cargo_today[0].carpool_id != 0">
+            <a class="dropdown-item text-center text-muted-dark text-white  bg-green">รถที่ออกเดินทางวันนี้</a>
+            <div class="dropdown-divider"></div>
+            <a routerLink="/viewround/{{y.trip_id}}" class="dropdown-item d-flex" *ngFor="let y of cargo_today">
+              <span class="avatar mr-3 align-self-center" style="background-image: url(assets/images/icon/car.png)"></span>
+              <div>
+                <strong>เลขที่ใบจอง :</strong> {{y.trip_id}}
+                <div class="small text-muted">
+                  <strong>ทะเบียนรถ :</strong> {{y.carpool_id}}</div>
+                <div class="small text-muted">
+                  <strong>เวลาออกเดินทาง :</strong> {{y.trip_time}} น.
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <!--  ..................................................................................................................        -->
+        <div class="dropdown d-none d-md-flex" *ngIf="this.service.gc != ''">
+          <a class="nav-link icon" data-toggle="dropdown">
+            <i class="fa fa-bell w3-animate-zoom text-danger"></i>
+            <span class="nav-unread w3-animate-zoom" *ngIf="this.service.gc != '' && this.carback_past[0].carpool_id != 0"></span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" *ngIf="this.service.gc != '' && this.carback_past[0].carpool_id != 0">
+            <a routerLink="/get" class="dropdown-item text-center text-muted-dark text-white  bg-green">รถที่ยังไม่ได้รับคืน</a>
+            <div class="dropdown-divider"></div>
+            <a routerLink="/back_car/{{x.trip_id}}/{{x.carpool_id}}" class="dropdown-item d-flex" *ngFor="let x of carback_past">
+              <span class="avatar mr-3 align-self-center" style="background-image: url(assets/images/icon/key.png)"></span>
+              <div>
+                <strong>เลขที่ใบจอง :</strong> {{x.trip_id}}
+                <div class="small text-muted">
+                  <strong>ทะเบียนรถ :</strong> {{x.carpool_id}}</div>
+                <div class="small text-muted">
+                  <strong>กำนหนดกลับ :</strong> {{x.trip_end}}
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="dropdown  w3-animate-top" *ngIf=" this.service.ary[0].user_level==0">
+          <a routerLink="login" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+            <span class="avatar" style="background-image: url(assets/images/icon/user.png)"></span>
+            <span class="ml-2 d-none d-lg-block">
+              <span class="text-default">{{this.service.ary[0].name}}</span>
+              <small class="text-muted d-block mt-1">คลิกที่นี่เพื่อเข้าสู่ระบบ</small>
+            </span>
+          </a>
+        </div>
+        <div class="dropdown  w3-animate-top" *ngIf="this.service.ary[0].user_level==1 ">
+          <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+            <span class="avatar" style="background-image: url(assets/images/icon/pesonal.png)"></span>
+            <span class="ml-2 d-none d-lg-block">
+              <span class="text-default">{{this.service.ary[0].name}}</span>
+              <small class="text-muted d-block mt-1">ผู้ควบคุมยานพาหนะ</small>
+            </span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
+            <a class="dropdown-item text-white bg-green" (click)="log_out() ">
+              <i class="dropdown-icon fe fe-log-out"></i> ออกจากระบบ
+            </a>
+          </div>
+        </div>
+        <div class="dropdown  w3-animate-top" *ngIf="this.service.ary[0].user_level==2 ">
+          <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+            <span class="avatar" style="background-image: url(assets/images/icon/admin.png)"></span>
+            <span class="ml-2 d-none d-lg-block">
+              <span class="text-default">{{this.service.ary[0].name}}</span>
+              <small class="text-muted d-block mt-1">ผู้ดูแลระบบ</small>
+            </span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
+            <a class="dropdown-item text-white bg-green" (click)="log_out() ">
+              <i class="dropdown-icon fe fe-log-out"></i> ออกจากระบบ
+            </a>
+          </div>
+        </div>
+      </div>
+      <a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">
+        <span class="header-toggler-icon"></span>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg order-lg-first">
+        <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
+          <li class="nav-item">
+            <a routerLink="/car" class="nav-link active" data-toggle="dropdown" *ngIf="this.service.nav =='car'">
+              <i class="fa fa-automobile"></i>ข้อมูลรถ</a>
+            <a routerLink="/car" class="nav-link" data-toggle="dropdown" *ngIf="this.service.nav !='car'">
+              <i class="fa fa-automobile"></i>ข้อมูลรถ</a>
+            <div class="dropdown-menu dropdown-menu-arrow" *ngIf="this.service.gc !=''">
+              <a routerLink="/addcar" class="dropdown-item" *ngIf="this.service.ary[0].user_level > 1">
+                <i class="fa fa-plus-circle"></i>เพิ่มข้อมูลรถ</a>
+              <a routerLink="/give" class="dropdown-item" hidden>
+                <i class="fa fa-mail-forward"></i>ส่งกุญแจรถ</a>
+              <a routerLink="/get" class="dropdown-item">
+                <i class="fa fa-mail-reply"></i>รับกุญแจรถ</a>
+              <a routerLink="/history" class="dropdown-item">
+                <i class="fa fa-calendar-check-o"></i>ประวัติการใช้รถย้อนหลัง</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a routerLink="/round" class="nav-link active" data-toggle="dropdown" *ngIf="this.service.nav =='round'">
+              <i class="fe fe-calendar"></i>ตรวจสอบการเดินทาง</a>
+            <a routerLink="/round" class="nav-link" data-toggle="dropdown" *ngIf="this.service.nav !='round'">
+              <i class="fe fe-calendar"></i>ตรวจสอบการเดินทาง</a>
+          </li>
+          <li class="nav-item dropdown" *ngIf="this.service.ary[0].user_level > 1">
+            <a routerLink="/user" class="nav-link active" data-toggle="dropdown" *ngIf="this.service.nav =='user'">
+              <i class="fe fe-user"></i>ข้อมูลผู้ใช้งาน</a>
+            <a routerLink="/user" class="nav-link" data-toggle="dropdown" *ngIf="this.service.nav !='user'">
+              <i class="fe fe-user"></i>ข้อมูลผู้ใช้งาน</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a routerLink="/map" class="nav-link active" data-toggle="dropdown" *ngIf="this.service.nav =='map'">
+              <i class="fa fa-fort-awesome"></i>ข้อมูลสถานที่เดินทาง</a>
+            <a routerLink="/map" class="nav-link " data-toggle="dropdown" *ngIf="this.service.nav !='map'">
+              <i class="fa fa-fort-awesome"></i>ข้อมูลสถานที่เดินทาง</a>
+            <div class="dropdown-menu dropdown-menu-arrow" *ngIf="this.service.ary[0].user_level > 1 ">
+              <a routerLink="/addmap" class="dropdown-item">
+                <i class="fa fa-plus-circle"></i>เพิ่มข้อมูลสถานที่</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown" *ngIf="this.service.gc !=''">
+            <a class="nav-link active" data-toggle="dropdown" *ngIf="this.service.nav =='report'">
+              <i class="fe fe-file-text"></i>ออกรายงาน</a>
+            <a class="nav-link" data-toggle="dropdown" *ngIf="this.service.nav !='report'">
+              <i class="fe fe-file-text"></i>ออกรายงาน</a>
+            <div class="dropdown-menu dropdown-menu-arrow" *ngIf="this.service.gc !='' ">
+              <a routerLink="/report" class="dropdown-item">
+                <i class="fa fa-calendar"></i>รายงานการใช้รถยต์ประจำเดือน</a>
+              <a routerLink="/report2" class="dropdown-item">
+                <i class="fa fa-free-code-camp"></i> รายงานการใช้เชื้อเพลิง</a>
+              <a routerLink="/report3" class="dropdown-item">
+                <i class="fa fa-ambulance"></i>รายงานรถยนต์ที่พบปัญหา</a>
+            </div>
+          </li>
+          <li class="nav-item" hidden>
+            <a routerLink="/contact" class="nav-link">
+              <i class="fe fe-phone"></i> ติดต่อจองรถ</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

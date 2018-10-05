@@ -1,0 +1,109 @@
+<div class="col-12 ">
+  <div class="card w3-animate-right">
+    <div class="card-header bg-green">
+      <h3 class="card-title text-white">
+        <i class="fa fa-automobile"></i> ข้อมูลรถ</h3>
+
+      <div class="col-lg-5  ml-auto">
+        <form class="row">
+          <input type="date" class="form-control col-5" [(ngModel)]="trip_start" name="trip_start">
+          <h3 class="card-title text-white col-1 text-center">_</h3>
+          <input type="date" class="form-control col-5" [(ngModel)]="trip_end" name="trip_end">
+          <button class="btn btn-sm btn-white col-1" (click)="feed_car_if()">ค้น</button>
+        </form>
+      </div>
+
+      <div class="col-lg-3 ml-auto">
+        <form class="input-icon my-3 my-lg-0">
+          <input type="search" class="form-control header-search" placeholder="กรองข้อมูลรถ" tabindex="1" [(ngModel)]="term" name="term">
+          <div class="input-icon-addon">
+            <i class="fe fe-search"></i>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table card-table table-vcenter text-nowrap">
+        <thead>
+          <tr>
+            <th class="w-1">ทะเบียนรถ</th>
+            <th>ยี่ห้อ</th>
+            <th>รุ่น</th>
+            <th>จำนวนที่นั่งสูงสุด</th>
+            <th>ประเภทรถ</th>
+            <th>สถานะ</th>
+            <th></th>
+
+            <th *ngIf="this.service.gc !=''">จอง</th>
+            <th *ngIf="this.service.gc !=''">แก้ไข</th>
+            <th *ngIf="this.service.ary[0].user_level > 1">ยกเลิก</th>
+
+            <th *ngIf="this.service.gc !=''">ซ่อมบำรุง</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of car | filter: this.term ">
+            <td data-title="ทะเบียนรถ">
+              {{x.carpool_id}}</td>
+            <td data-title="ยี่ห้อ">
+              <span class="avatar" *ngIf="x.carpool_brand =='Bmw'" style="background-image: url(assets/images/icon/bmw.png)"></span>
+              <span class="avatar" *ngIf="x.carpool_brand =='Chevrolet'" style="background-image: url(assets/images/icon/chevrolet.png)"></span>
+              <span class="avatar" *ngIf="x.carpool_brand =='Honda'" style="background-image: url(assets/images/icon/honda.png)"></span>
+              <span class="avatar" *ngIf="x.carpool_brand =='Isuzu'" style="background-image: url(assets/images/icon/isuzu.png)"></span>
+              <span class="avatar" *ngIf="x.carpool_brand =='Toyota'" style="background-image: url(assets/images/icon/toyota.png)"></span>
+              {{x.carpool_brand}}</td>
+            <td data-title="รุ่น">
+              {{x.carpool_model}}
+            </td>
+            <td data-title="จำนวนที่นั่งสูงสุด">
+              {{x.carpool_sit2}}
+            </td>
+            <td data-title="ประเภทรถ">
+              {{x.carpool_type}}
+            </td>
+            <td data-title="สถานะ">
+              <div *ngIf="x.carpool_go =='จอด'">
+                <span class="status-icon bg-success"></span> {{x.carpool_go}} </div>
+              <div *ngIf="x.carpool_go =='เดินทาง'">
+                <span class="status-icon bg-dark"></span> {{x.carpool_go}} </div>
+              <div *ngIf="x.carpool_go =='ซ่อมบำรุง'">
+                <span class="status-icon bg-danger"></span> {{x.carpool_go}} </div>
+            </td>
+            <td>
+              <a routerLink="/calendar/{{x.carpool_id}}">
+                <button class="btn btn-secondary btn-sm">ดูรอบรถ</button>
+              </a>
+            </td>
+            <td *ngIf="this.service.gc !=''">
+              <a class="icon" routerLink="/addtrip/{{x.carpool_id}}" *ngIf="x.carpool_go !='ซ่อมบำรุง'">
+                <i class="fe fe-user-plus"></i>
+              </a>
+              <a class="icon" *ngIf="x.carpool_go =='ซ่อมบำรุง'">
+                <i class="fe fe-shield-off"></i>
+              </a>
+            </td>
+            <td *ngIf="this.service.gc !=''">
+              <a class="icon" routerLink="/editcar/{{x.carpool_id}}">
+                <i class="fe fe-edit"></i>
+              </a>
+            </td>
+            <td *ngIf="this.service.ary[0].user_level > 1">
+              <a class="icon" (click)="cancel(x.carpool_id)">
+                <i class="fe fe-trash-2 "></i>
+              </a>
+            </td>
+            <td *ngIf="this.service.gc !=''">
+              <a class="icon" (click)="maintenance(x.carpool_id)" *ngIf="x.carpool_go =='จอด'">
+                <i class="fa fa-wrench "></i>
+              </a>
+              <a class="icon" (click)="back(x.carpool_id)" *ngIf="x.carpool_go =='ซ่อมบำรุง'">
+                  <i class="fa fa-reply "></i>
+                </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

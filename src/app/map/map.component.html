@@ -1,0 +1,60 @@
+<div class="col-12 w3-animate-right">
+  <div class="card">
+    <div class="card-header bg-green">
+      <h3 class="card-title text-white">
+        <i class="fa fa-fort-awesome"></i> ข้อมูลสถานที่</h3>
+      <div class="col-lg-3 col-6 ml-auto">
+        <form class="input-icon my-3 my-lg-0">
+          <input type="search" class="form-control header-search" placeholder="กรองข้อมูลสถานที่" tabindex="1" [(ngModel)]="term" name="term">
+          <div class="input-icon-addon">
+            <i class="fe fe-search"></i>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table card-table table-vcenter text-nowrap">
+        <thead>
+          <tr>
+            <th class="w-1">รหัส</th>
+            <th>ชื่อ</th>
+            <th>จังหวัด</th>
+            <th hidden> รหัสเขต</th>
+            <th hidden>ชื่อเขต</th>
+            <th>แผนที่</th>
+            <th *ngIf="this.service.ary[0].user_level > 1">แก้ไข</th>
+            <th *ngIf="this.service.ary[0].user_level > 1">ยกเลิก</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of trsg | filter: this.term ">
+            <td>{{x.trsg_id}}</td>  
+            <td>{{x.trsg_name}}</td>
+            <td>{{x.trsg_city}}</td>
+            <td hidden>
+              {{x.ba_id}}
+            </td>
+            <td hidden>
+              {{x.ba_name}}
+            </td>
+            <td>
+              <a href="{{x.trsg_map}}" target="_blank" class="text-orange">ตรวจสอบแผนที่
+                <i class="fa fa-map-marker text-orange"></i>
+              </a>
+            </td>
+            <td *ngIf="this.service.ary[0].user_level > 1">
+              <a class="icon" routerLink="/editmap/{{x.trsg_id}}">
+                <i class="fe fe-edit"></i>
+              </a>
+            </td>
+            <td *ngIf="this.service.ary[0].user_level > 1">
+              <a class="icon" (click)="del(x.trsg_id)">
+                <i class="fe fe-trash-2"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

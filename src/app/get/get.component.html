@@ -1,0 +1,93 @@
+<div class="col-12">
+  <div class="card  w3-animate-right">
+    <div class="card-header bg-green">
+      <h3 class="card-title text-white">
+        <i class="fa fa-mail-reply"></i> รับกุญแจรถ </h3>
+      <div class="col-lg-3 col-8 ml-auto">
+        <form class="input-icon my-3 my-lg-0">
+          <input type="search" class="form-control header-search" placeholder="ค้นหาข้อมูลการเดินทาง" tabindex="1" [(ngModel)]="term"
+            name="term">
+          <div class="input-icon-addon">
+            <i class="fe fe-search"></i>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table card-table table-vcenter text-nowrap">
+        <thead>
+          <tr>
+            <th class="w-1" hidden>รหัสการจอง</th>
+            <th>ทะเบียนรถ</th>
+            <th>ยี่ห้อ</th>
+            <th>รุ่น</th>
+            <th>จำนวนที่นั่ง</th>
+            <th>เวลาเดินทาง</th>
+            <th>วันที่กลับ</th>
+            <th>สถานที่</th>
+
+            <th *ngIf="this.service.gc !=''">พิมพ์</th>
+            <th>ตรวจสอบ</th>
+            <th>รับกุญแจรถ</th>
+
+
+            <th *ngIf="this.service.ary[0].user_level > 1">ลบ</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="this.travel[0].trip_id !=''">
+          <tr *ngFor="let x of travel | filter: this.term ">
+            <td hidden>
+              {{x.trip_id}}</td>
+            <td>
+              <i class="fa fa-bell w3-animate-zoom text-danger" *ngIf="x.limit =='true'"></i>
+              <i class="fa fa-clock-o w3-animate-zoom text-yellow" *ngIf="x.limit =='present'"></i>
+              {{x.carpool_id}}
+            </td>
+            <td>
+              {{x.carpool_brand}}
+            </td>
+            <td>
+              {{x.carpool_model}}
+            </td>
+            <td>
+              {{x.trip_sit}}/{{x.carpool_sit2}}
+            </td>
+            <td>
+              {{x.trip_start}} {{x.trip_time}} น.
+            </td>
+            <td>
+              {{x.trip_end}}
+            </td>
+            <td>
+              {{x.trsg_name}}
+              <a href="{{x.trsg_map}}" target="_blank" class="text-orange">
+                <i class="fa fa-map-marker text-orange"></i>
+              </a>
+            </td>
+            <td *ngIf="this.service.gc !=''">
+              <a class="icon" href="{{urlbase}}\TCPDF-master\examples\take_car.php?id={{x.trip_id}}" target="_blank">
+                <i class="fa fa-print"></i>
+              </a>
+            </td>
+            <td>
+              <a class="icon" routerLink="/viewround/{{x.trip_id}}">
+                <i class="fe fe-external-link"></i>
+              </a>
+            </td>
+            <td *ngIf="this.service.gc !=''">
+              <a class="icon" routerLink="/back_car/{{x.trip_id}}/{{x.carpool_id}}">
+                <i class="fa fa-mail-reply"></i>
+              </a>
+            </td>
+            <td *ngIf="this.service.ary[0].user_level > 1">
+              <a class="icon" (click)="cancel(x.trip_id)">
+                <i class="fe fe-trash-2"></i>
+              </a>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

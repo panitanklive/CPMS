@@ -1,0 +1,53 @@
+<div class="col-lg w3-animate-right">
+  <form class="card" novalidate="">
+    <div class="card-body ">
+      <h3 class="card-title">
+        <i class="fe fe-edit"></i> แก้ไขข้อมูลสถานที่</h3>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="form-label">รหัสสถานที่
+              <span class="form-required">*</span>
+            </label>
+            <input class="form-control " name="trsg_id" placeholder="กรอกรหัสสถานที่" type="text" [(ngModel)]="trsg_id" maxlength="6"
+              readonly>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-5">
+          <div class="form-group">
+            <label class="form-label">ชื่อสถานที่
+              <span class="form-required">*</span>
+            </label>
+            <input class="form-control " name="trsg_name" placeholder="กรอกชื่อสถานที่" type="text" [(ngModel)]="this.trsg[0].trsg_name">
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="form-group">
+            <label class="form-label">จังหวัด
+              <span class="form-required">*</span>
+            </label>
+        
+
+            <ng-select [items]="trsg_any" bindLabel="name" bindValue="name" [(ngModel)]="this.trsg[0].trsg_city" name="trsg_city" placeholder="เลือกจังหวัด">
+            </ng-select>
+
+           
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6">
+          <div class="form-group">
+            <label class="form-label">กรอกแผนที่
+              <span class="form-required">*</span>
+            </label>
+            <input class="form-control" name="trsg_map" placeholder="กรอกลิงค์แผนที่" type="text" [(ngModel)]="this.trsg[0].trsg_map">
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="card-footer text-right">
+      <button class="btn btn-primary" type="submit" (click)="edit()">บันทึกข้อมูลสถานที่</button>
+    </div>
+  </form>
+</div>

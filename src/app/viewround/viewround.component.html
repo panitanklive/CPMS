@@ -1,0 +1,111 @@
+<div class="row w3-animate-right">
+  <div class="card  col-lg-9">
+    <div class="card-header">
+      <h3 class="card-title">
+        <i class="fe fe-external-link"></i> ข้อมูลการเดินทาง</h3>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="form-group col-sm-4 col-md-3">
+          <label class="form-label">
+            วันที่เดินทาง
+            <span class="form-required">*</span>
+          </label>
+          <input type="date" class="form-control" [(ngModel)]="this.round[0].trip_start" name="trip_start" readonly="readonly">
+        </div>
+        <div class="form-group col-sm-4 col-md-2">
+          <label class="form-label">
+            เวลาเดินทาง
+            <span class="form-required">*</span>
+          </label>
+          <input type="time" class="form-control" [(ngModel)]="this.round[0].trip_time" name="trip_time" readonly="readonly">
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          <label class="form-label">
+            วันที่กลับ
+            <span class="form-required">*</span>
+          </label>
+          <input type="date" class="form-control" [(ngModel)]="this.round[0].trip_end" name="trip_end" readonly="readonly">
+        </div>
+        <div class="form-group col-sm-4 col-md-4" readonly="readonly">
+          <label class="form-label">
+            สถานที่
+            <span class="form-required">*</span>
+          </label>
+          <input class="form-control" [(ngModel)]="this.round[0].trsg_name" name="trsg_name" readonly="readonly">
+        </div>
+      </div>
+      <div class="form-label">ข้อมูลผู้ร่วมเดินทาง</div>
+      <div class="table-responsive">
+        <table class="table mb-0">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th class="pl-0">ชื่อ-สกุล</th>
+              <th>เบอร์ติดต่อ</th>
+              <th>เบอร์โต๊ะ</th>
+              <th>สถานะ</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of passenger; let i = index">
+              <td>{{i+1}}.</td>
+              <td class="pl-0">
+                &nbsp;
+                <i class="fa fa-info-circle text-primary" (click)="group_dep(p.employee_dep)"></i>
+                {{p.employee_detail}}
+              </td>
+              <td>
+                {{p.passenger_tel}}
+              </td>
+              <td>
+                {{p.passenger_tel_table}}
+              </td>
+              <td class="pr-0">
+                <button class="btn btn-green btn-sm" (click)="ch(p.passenger_status,i)" *ngIf="p.passenger_status == 'จอง'">{{p.passenger_status}}</button>
+                <button class="btn btn-gray btn-sm" (click)="ch(p.passenger_status,i)" *ngIf="p.passenger_status == 'โดยสาร'">{{p.passenger_status}}</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card col-lg-3">
+    <div class="card-header">
+      <h3 class="card-title">
+        <i class="fa fa-automobile"></i> ข้อมูลรถ</h3>
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="row">
+
+          <div class="col">
+            <div class="form-group">
+              <label class="form-label">ทะเบียนรถ</label>
+              <input class="form-control" value="{{this.round[0].carpool_id}}" readonly="readonly">
+            </div>
+            <div class="form-group">
+              <label class="form-label">ยี่ห้อ</label>
+              <input class="form-control" value="{{this.round[0].carpool_brand}}" readonly="readonly">
+            </div>
+            <div class="form-group">
+              <label class="form-label">รุ่น</label>
+              <input class="form-control" value="{{this.round[0].carpool_model}}" readonly="readonly">
+            </div>
+            <div class="form-group">
+              <label class="form-label">จำนวนที่นั่งสูงสุด</label>
+              <input class="form-control" value="{{this.round[0].carpool_sit2}}" readonly="readonly">
+            </div>
+            <div class="form-group">
+              <label class="form-label">ประเภทรถ</label>
+              <input class="form-control" value="{{this.round[0].carpool_type}}" readonly="readonly">
+            </div>
+          </div>
+        </div>
+        <br>
+      </form>
+    </div>
+  </div>
+</div>

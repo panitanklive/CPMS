@@ -1,0 +1,80 @@
+<div class="col-lg w3-animate-right">
+  <form class="card">
+    <div class="card-body ">
+      <h3 class="card-title">
+        <i class="fa fa-plus-circle"></i> เพิ่มข้อมูลรถ</h3>
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group">
+            <label class="form-label">ทะเบียนรถ
+              <span class="form-required">*</span>
+            </label>
+            <input type="text" class="form-control" placeholder="กรอกเลขทะเบียนรถ" [(ngModel)]="carpool_id" name="carpool_id">
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="form-group">
+            <label class="form-label">ยี่ห้อ
+              <span class="form-required">*</span>
+            </label>
+            <select class="form-control custom-select" [(ngModel)]="carpool_brand" name="carpool_brand">
+              <option value="">เลือกยี่ห้อรถ</option>
+              <option *ngFor="let x of car_brand" value="{{x.brand}}">{{x.brand}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <div class="form-group">
+            <label class="form-label">
+              รุ่น
+              <span class="form-required">*</span>
+            </label>
+            <input type="email" class="form-control" placeholder="กรอกรุ่นรถ" [(ngModel)]="carpool_model" name="carpool_model">
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-4">
+          <div class="form-group">
+            <label class="form-label">
+              ประเภทรถ
+              <span class="form-required">*</span>
+            </label>
+            <input type="text" class="form-control" placeholder="กรอกประเภทรถ" [(ngModel)]="carpool_type" name="carpool_type">
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-4">
+          <div class="form-group">
+            <label class="form-label">
+              ไมล์รถ
+              <span class="form-required">*</span>
+            </label>
+            <input type="text" class="form-control" placeholder="กรอกไมล์รถ 6 หลัก" [(ngModel)]="carpool_mile" name="carpool_mile" maxlength="6">
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-4">
+          <div class="form-group">
+            <label class="form-label">
+              จำนวนที่นั่งสูงสุด
+              <span class="form-required">*</span>
+            </label>
+            <input type="number" class="form-control" [(ngModel)]="carpool_sit2" name="carpool_sit2">
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-4">
+          <div class="form-group">
+            <label class="form-label">สถานที่ที่จอดรถ
+              <span class="form-required">*</span>
+            </label>
+            <ng-select [items]="park" bindLabel="carpool_park" bindValue="carpool_park" [(ngModel)]="carpool_park" name="carpool_park"
+              placeholder="กรอกสถานที่จอดรถ">
+            </ng-select>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="card-footer text-right">
+      <button type="submit" class="btn btn-primary" (click)="add()">บันทึกข้อมูลรถ</button>
+    </div>
+  </form>
+
+</div>
